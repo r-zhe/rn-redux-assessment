@@ -1,0 +1,101 @@
+import React, { Component } from 'react'
+import { View, Text, StyleSheet} from 'react-native';
+
+import { connect } from 'react-redux';
+
+import Touchable from '../components/UI/Touchable'
+import Card from '../components/UI/Card'
+
+import {getUsers} from '../services/api/api'
+import { ADD_USER } from '../services/redux/action-types';
+
+class LandingPage extends Component {
+
+  componentDidMount(){
+    getUsers()
+      .then(res => {
+        // console.log(JSON.parse(JSON.stringify(res[1])).address)
+        // let tempUsers = JSON.parse(JSON.stringify(res))
+        // tempUsers.map((user,idx) => {
+        //   tempUsers[idx].company = JSON.parse(JSON.stringify(user.company))
+        // })
+        this.props.addUser(res)
+      })
+      .catch(err => console.log(err))
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Card style={{alignItems:'center'}}>
+          <Text style={styles.header}>React Native & Redux Exercise</Text>
+
+          <View style = {styles.btnContainer}>
+            <Touchable
+              fn={() => this.props.navigation.navigate('DisplayUsers')}>
+                <Text style={styles.TOFonts}>View all User From Redux</Text>
+            </Touchable>
+          </View>
+
+          <View style = { styles.btnContainer}>
+            <Touchable
+              fn={() => this.props.navigation.navigate('AddUser')}>
+                <Text style={styles.TOFonts}>Add User to Redux</Text>
+            </Touchable>
+          </View>
+
+          <View style = { styles.btnContainer}>
+            <Touchable
+              fn={() => this.props.navigation.navigate('EditUser')}>
+                <Text style={styles.TOFonts}>Edit User From Redux</Text>
+            </Touchable>
+          </View>
+
+          <View style = { styles.btnContainer}>
+            <Touchable
+              fn={() => this.props.navigation.navigate('ClearUsers')}>
+                <Text style={styles.TOFonts}>Clear all User From Redux</Text>
+            </Touchable>
+          </View>
+
+        </Card>
+      </View>
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  btnContainer:{
+    padding:10
+  },
+  header:{
+    color:'black',
+    fontSize:20,
+  },
+  TOFonts:{
+    color:"#FFFFFF"
+  }
+});
+
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+      addUser: (user) => 
+          dispatch({
+              type: ADD_USER,
+              newUser: user
+          }),
+      dispatch,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);
