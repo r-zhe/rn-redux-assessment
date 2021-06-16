@@ -3,8 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import LandingPage from "../screens/LandingPage";
 import DisplayUsers from "../screens/DisplayUsers";
-import AddUser from '../screens/AddUser';
-import EditUser from '../screens/EditUser';
+import AddEditUser from '../screens/AddEditUser';
 import ClearUsers from '../screens/ClearUsers';
 
 const AppNavigator = createStackNavigator();
@@ -27,15 +26,9 @@ const AppNavigation = () => {
         />
 
         <AppNavigator.Screen
-            name="AddUser"
-            component={AddUser}
-            options={{ title: 'Add User' }}
-        />
-
-        <AppNavigator.Screen
-            name="EditUser"
-            component={EditUser}
-            options={{ title: 'Edit User' }}
+            name="AddEditUser"
+            component={AddEditUser}
+            options={{ title: 'Add or Edit User' }}
         />
 
         <AppNavigator.Screen

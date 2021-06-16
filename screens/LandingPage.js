@@ -14,11 +14,6 @@ class LandingPage extends Component {
   componentDidMount(){
     getUsers()
       .then(res => {
-        // console.log(JSON.parse(JSON.stringify(res[1])).address)
-        // let tempUsers = JSON.parse(JSON.stringify(res))
-        // tempUsers.map((user,idx) => {
-        //   tempUsers[idx].company = JSON.parse(JSON.stringify(user.company))
-        // })
         this.props.addUser(res)
       })
       .catch(err => console.log(err))
@@ -34,27 +29,6 @@ class LandingPage extends Component {
             <Touchable
               fn={() => this.props.navigation.navigate('DisplayUsers')}>
                 <Text style={styles.TOFonts}>View all User From Redux</Text>
-            </Touchable>
-          </View>
-
-          <View style = { styles.btnContainer}>
-            <Touchable
-              fn={() => this.props.navigation.navigate('AddUser')}>
-                <Text style={styles.TOFonts}>Add User to Redux</Text>
-            </Touchable>
-          </View>
-
-          <View style = { styles.btnContainer}>
-            <Touchable
-              fn={() => this.props.navigation.navigate('EditUser')}>
-                <Text style={styles.TOFonts}>Edit User From Redux</Text>
-            </Touchable>
-          </View>
-
-          <View style = { styles.btnContainer}>
-            <Touchable
-              fn={() => this.props.navigation.navigate('ClearUsers')}>
-                <Text style={styles.TOFonts}>Clear all User From Redux</Text>
             </Touchable>
           </View>
 

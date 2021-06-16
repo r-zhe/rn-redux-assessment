@@ -1,5 +1,4 @@
 import {
-  GET_USERS,
   EDIT_USER,
   ADD_USER,
   CLEAR_USERS
@@ -19,17 +18,14 @@ export default (state = initialState, action) => {
       }
 
     case EDIT_USER:
+
+      let tempUsers = [...state.users]
+      let idxToBeModified = tempUsers.findIndex(user => user.id === action.newUser.id)
+      tempUsers[idxToBeModified] = action.newUser
+
       return{
         ...state,
-        users: state.users.map(user => {
-          if(user.id === action.id){
-            console.log("SELECTED ID",user.id)
-            console.log()
-          }
-          else{
-
-          }
-        })
+        users: [...tempUsers]
       }
 
     case CLEAR_USERS:
