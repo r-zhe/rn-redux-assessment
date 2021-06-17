@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
 
 import { connect } from 'react-redux';
 
-import Card from '../components/UI/Card'
-import Touchable from '../components/UI/Touchable'
+import _ from 'lodash'
+
+import { List,TextInput,Button } from 'react-native-paper'
 
 
 class DisplayUsers extends Component {
 
   state={
-    allUsers:[]
+    allUsers:[],
+    filteredUser:[]
   }
 
   componentDidMount(){
@@ -29,49 +31,93 @@ class DisplayUsers extends Component {
   //   this.setState({allUsers:[]})
   // }
 
+  textInputUpdate = (text) => {
+    let tempName = [...this.state.allUsers]
+    let filteredUser = tempName.map(user => {
+        if(user.name.toString().toLowerCase().includes(text.toLowerCase())){
+            return user
+        }
+        else{
+            return null
+        }
+    })
+
+    let temp = filteredUser.filter(el => el !== null)
+
+    this.setState({
+      allUsers:_.cloneDeep(this.state.allUsers),
+      filteredUser: _.cloneDeep(temp)
+    })
+    
+  }
 
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView >
+        <TextInput 
+          label="Search by Name"
+          right={<TextInput.Icon name="magnify" />}
+          onChangeText={(text) => {
+            this.textInputUpdate(text)
+          }}
+        />
+        <ScrollView style={{backgroundColor: '#ffffff'}}>
             {this.state.allUsers.length > 0 
-              ? this.state.allUsers.map((user,idx) => {
-                return <TouchableOpacity 
-                          key={idx}
-                          onPress={() => this.props.navigation.navigate("AddEditUser", {selectedUser:user})}>
-                  <Card style={styles.cardStyle}>
-                    <Text style={styles.cardText}> Name : {user.name} </Text>
-                  </Card>
-                </TouchableOpacity> 
-
-              })
+              ? this.state.filteredUser.length > 0 
+                ? this.state.filteredUser.map((user,idx) => {
+                    return <TouchableOpacity 
+                              key={idx}
+                              onPress={() => this.props.navigation.navigate("AddEditUser", {selectedUser:user})}>
+                                <List.Item
+                                  title={user.name}
+                                  description={"Username: "+user.username}
+                                  left={props => <List.Icon {...props} icon="face" />}
+                                />
+                          </TouchableOpacity>
+                  })
+                : this.state.allUsers.map((user,idx) => {
+                    return <TouchableOpacity 
+                              key={idx}
+                              onPress={() => this.props.navigation.navigate("AddEditUser", {selectedUser:user})}>
+                                <List.Item
+                                  title={user.name}
+                                  description={"Username: "+user.username}
+                                  left={props => <List.Icon {...props} icon="face" />}
+                                />
+                          </TouchableOpacity> 
+                  })
               : <Text style={{color:'black'}}> No User </Text>}
         </ScrollView>
 
         <View style={{flexDirection:'row'}}>
           <View>
-            <Touchable
-            style={{width:195}}
-              fn={() =>{
-                  this.props.navigation.navigate("AddEditUser")  
-                }
-              }
+            <Button
+              color="green"
+              style={{width:195}}
+              icon="account-plus-outline"
+              onPress={() => this.props.navigation.navigate("AddEditUser")  }
             >
-              <Text>Add User</Text>
-            </Touchable>
+              Add User
+            </Button>
+
           </View>
 
           <View>
-            <Touchable
-              style={{backgroundColor:'red',width:195}}
-              fn={() =>{
-                this.props.navigation.navigate("ClearUsers")  
-                }}
+            <Button
+              style={{width:195}}
+              color="red"
+              icon="delete"
+              onPress={() => this.props.navigation.navigate("ClearUsers")   }
             >
-              <Text>Clear All User</Text>
-            </Touchable>
+              Clear all user
+            </Button>
           </View>
+
+          
+
         </View>
+
+        <View style={{marginBottom:'20%'}}/>
 
       </View>
     )

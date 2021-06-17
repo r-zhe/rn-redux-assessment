@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, Alert} from 'react-native';
 
 import { connect } from 'react-redux';
 
+import {Button } from 'react-native-paper'
+
 import Card from '../components/UI/Card'
 import Touchable from '../components/UI/Touchable'
 
@@ -13,13 +15,14 @@ class ClearUsers extends Component {
     return (
       <View style={styles.container}>
         <Card style={{alignItems:'center'}}>
-          <Text style={styles.header}>Clear Users</Text>
-
           <View style = {styles.btnContainer}>
-            <Touchable
-              style={{backgroundColor:'red'}}
-              fn={() => {
-                  Alert.alert(
+
+          <Button
+              style={{width:195}}
+              color="red"
+              icon="delete"
+              onPress={() => {
+                Alert.alert(
                     "ALERT",
                     "Are you sure ?",
                     [
@@ -38,9 +41,10 @@ class ClearUsers extends Component {
                       onDismiss: () => {console.log("Dismiss alert")}
                     }
                   );
-              }}>
-                <Text style={styles.TOFonts}>Clear Users</Text>
-            </Touchable>
+              }}
+            >
+              Clear all user
+            </Button>
           </View>
 
         </Card>

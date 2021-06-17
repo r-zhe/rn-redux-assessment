@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, ScrollView, TextInput} from 'react-native';
+import { View, StyleSheet, ScrollView, Keyboard} from 'react-native';
+
+import { TextInput,IconButton } from 'react-native-paper';
 
 import Card from '../components/UI/Card';
-import Touchable from '../components/UI/Touchable';
 
 import { connect } from 'react-redux';
 
@@ -50,65 +51,38 @@ class EditUser extends Component {
         break
 
       case "companyName":
-        if(text.includes("Company name: ")){
-          text = text.replace("Company name: ","")
-        }
         this.setState({companyName:text})
         break
 
       case "companyCatchPhrase":
-        if(text.includes("Company Catch Phrase: ")){
-          text = text.replace("Company Catch Phrase: ","")
-        }
         this.setState({companyCatchPhrase:text})
         break
 
       case "companyBS":
-        if(text.includes("Company bs: ")){
-          text = text.replace("Company bs: ","")
-        }
         this.setState({companyBS:text})
         break
       
       case "street":
-        if(text.includes("Street name: ")){
-          text = text.replace("Street name: ","")
-        }
         this.setState({street:text})
         break
 
       case "suite":
-        if(text.includes("Suite: ")){
-          text = text.replace("Suite: ","")
-        }
         this.setState({suite:text})
         break
       
       case "city":
-        if(text.includes("City: ")){
-          text = text.replace("City: ","")
-        }
         this.setState({city:text})
         break
         
       case "zip":
-        if(text.includes("Zip Code: ")){
-          text = text.replace("Zip Code: ","")
-        }
         this.setState({zipcode:text})
         break
       
       case "lat":
-        if(text.includes("Latitude: ")){
-          text = text.replace("Latitude: ","")
-        }
         this.setState({lat:text})
         break
 
       case "lng":
-        if(text.includes("Longitude: ")){
-          text = text.replace("Longitude: ","")
-        }
         this.setState({lng:text})
         break
 
@@ -119,13 +93,12 @@ class EditUser extends Component {
 
   onUpdate = () =>{
 
+    Keyboard.dismiss()
+
     let newID;
 
     if(this.props.user !== undefined && this.props.user.users.length > 0 ){
       newID = this.props.user.users[this.props.user.users.length-1].id + 1
-    }
-    else{
-      newID = 0
     }
 
     let formatData ={
@@ -152,121 +125,133 @@ class EditUser extends Component {
       }
     }
 
-    if(this.props.params === undefined){
+    if(this.props.route.params === undefined){
       this.props.addUser([formatData])
     }else{
       this.props.EditUsers(formatData)
     }
   }
 
-
-  // Might be a good idea to use placeholder instead of default value but i dont know placeholder behavior with onChangeText so I didnt use them for now
   render() {
     return (
       <View style={styles.container}>
         <Card>
           <ScrollView>
-            <View style={{marginBottom:10}}/>
-            <Text>Name : </Text>
-            <TextInput 
+            <View style={{marginTop:'12%'}}/>
+            <TextInput
+              label="Name"
               defaultValue={this.state.name} 
               onChangeText={(text) => this.addValues("name",text)}
               style={styles.textInputStyle}
             ></TextInput>
 
-            <Text>Username : </Text>
-            <TextInput 
+            <TextInput
+              label="Username"
               defaultValue={this.state.username} 
               onChangeText={(text) => this.addValues("username",text)}
               style={styles.textInputStyle}
             ></TextInput>
 
-            <Text>Email : </Text>
-            <TextInput 
+            <TextInput
+              label="Email"
               defaultValue={this.state.email} 
               onChangeText={(text) => this.addValues("email",text)}
               style={styles.textInputStyle}
             ></TextInput>
 
-            <Text>Phone : </Text>
-            <TextInput 
+            <TextInput
+              label="Phone"
               defaultValue={this.state.phone} 
               onChangeText={(text) => this.addValues("phone",text)}
               style={styles.textInputStyle}
             ></TextInput>
 
-            <Text>website : </Text>
             <TextInput 
+              label="Website"
               defaultValue={this.state.website} 
               onChangeText={(text) => this.addValues("website",text)}
               style={styles.textInputStyle}
             ></TextInput>
 
-            <Text>Company : </Text>
-            <TextInput 
-              defaultValue={"Company name: " + this.state.companyName} 
-              onChangeText={(text) => this.addValues("companyName",text)}
-              style={styles.textInputStyle}
-            ></TextInput>
-
-            <TextInput 
-              defaultValue={"Company Catch Phrase: " +this.state.companyCatchPhrase} 
-              onChangeText={(text) => this.addValues("companyCatchPhrase",text)}
-              style={styles.textInputStyle}
-            ></TextInput>
-
-            <TextInput 
-              defaultValue={"Company bs: " +this.state.companyBS} 
-              onChangeText={(text) => this.addValues("companyBS",text)}
-              style={styles.textInputStyle}
-            ></TextInput>
-
-            <Text>Address : </Text>
-            <TextInput 
-              defaultValue={"Street name: " + this.state.street} 
+            <View style={{padding:'2%'}}/>
+            <TextInput
+              label="Street Name"
+              defaultValue={this.state.street} 
               onChangeText={(text) => this.addValues("street",text)}
               style={styles.textInputStyle}
             ></TextInput>
 
-            <TextInput 
-              defaultValue={"Suite: " +this.state.suite} 
+            <TextInput
+              label="Suite"
+              defaultValue={this.state.suite} 
               onChangeText={(text) => this.addValues("suite",text)}
               style={styles.textInputStyle}
             ></TextInput>
 
-            <TextInput 
-              defaultValue={"City: " +this.state.city} 
+            <TextInput
+              label="City"
+              defaultValue={this.state.city} 
               onChangeText={(text) => this.addValues("city",text)}
               style={styles.textInputStyle}
             ></TextInput>
 
-            <TextInput 
-              defaultValue={"Zip Code: " +this.state.zipcode} 
+            <TextInput
+              label="Zip Code"
+              defaultValue={this.state.zipcode} 
               onChangeText={(text) => this.addValues("zip",text)}
               style={styles.textInputStyle}
             ></TextInput>
 
-            <TextInput 
-              defaultValue={"Latitude: " +this.state.lat} 
+            <TextInput
+              label="Latitude"
+              defaultValue={this.state.lat} 
               onChangeText={(text) => this.addValues("lat",text)}
               style={styles.textInputStyle}
             ></TextInput>
 
-            <TextInput 
-              defaultValue={"Longitude: " +this.state.lng} 
+            <TextInput
+              label="Longitude"
+              defaultValue={this.state.lng} 
               onChangeText={(text) => this.addValues("lng",text)}
               style={styles.textInputStyle}
             ></TextInput>
 
-          <View style={{marginBottom:20}}/>
+            <View style={{padding:'2%'}}/>
+            <TextInput
+              label="Company"
+              defaultValue={this.state.companyName} 
+              onChangeText={(text) => this.addValues("companyName",text)}
+              style={styles.textInputStyle}
+            ></TextInput>
+
+            <TextInput
+              label="Company Catch Phrase"
+              defaultValue={this.state.companyCatchPhrase} 
+              onChangeText={(text) => this.addValues("companyCatchPhrase",text)}
+              style={styles.textInputStyle}
+            ></TextInput>
+
+            <TextInput
+              label="Company bs"
+              defaultValue={this.state.companyBS} 
+              onChangeText={(text) => this.addValues("companyBS",text)}
+              style={styles.textInputStyle}
+            ></TextInput>
+
+          
+          {/* <View style={{marginBottom:3}}/> */}
           </ScrollView>
         </Card>
-        <View style={{marginBottom:20}}/>
-        <Touchable
-          fn={()=>this.onUpdate()}
-        >
-          <Text style={{color:'white'}}>Update</Text>
-        </Touchable>
+        <View style={{paddingBottom:'1%'}}/>
+
+        <IconButton
+          icon="check-outline"
+          color="green"
+          size={20}
+          onPress={() => this.onUpdate()}
+        />
+
+        <View style={{paddingBottom:50}}/>
     </View>
     )
   }

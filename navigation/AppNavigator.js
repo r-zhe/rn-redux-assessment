@@ -16,13 +16,13 @@ const AppNavigation = () => {
         <AppNavigator.Screen
             name="LandingPage"
             component={LandingPage}
-            options={{ title: 'Home' }}
+            options={{ title: 'Index' }}
         />
 
         <AppNavigator.Screen
             name="DisplayUsers"
             component={DisplayUsers}
-            options={{ title: 'Display Users' }}
+            options={{ title: 'Users' }}
         />
 
         <AppNavigator.Screen

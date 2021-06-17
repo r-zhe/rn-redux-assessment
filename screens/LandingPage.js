@@ -3,6 +3,8 @@ import { View, Text, StyleSheet} from 'react-native';
 
 import { connect } from 'react-redux';
 
+import { List,TextInput,Button } from 'react-native-paper'
+
 import Touchable from '../components/UI/Touchable'
 import Card from '../components/UI/Card'
 
@@ -23,13 +25,14 @@ class LandingPage extends Component {
     return (
       <View style={styles.container}>
         <Card style={{alignItems:'center'}}>
-          <Text style={styles.header}>React Native & Redux Exercise</Text>
-
           <View style = {styles.btnContainer}>
-            <Touchable
-              fn={() => this.props.navigation.navigate('DisplayUsers')}>
-                <Text style={styles.TOFonts}>View all User From Redux</Text>
-            </Touchable>
+            <Button
+                color="green"
+                icon="chevron-right"
+                onPress={() => this.props.navigation.navigate('DisplayUsers')}
+              >
+                React Native & Redux Exercise
+              </Button>
           </View>
 
         </Card>
