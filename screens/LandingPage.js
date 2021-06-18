@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet} from 'react-native';
+import { View, StyleSheet} from 'react-native';
 
 import { connect } from 'react-redux';
 
-import { List,TextInput,Button } from 'react-native-paper'
+import { Button } from 'react-native-paper'
 
 import Touchable from '../components/UI/Touchable'
 import Card from '../components/UI/Card'

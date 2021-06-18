@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import {Button } from 'react-native-paper'
 
 import Card from '../components/UI/Card'
-import Touchable from '../components/UI/Touchable'
 
 import { CLEAR_USERS } from '../services/redux/action-types';
 

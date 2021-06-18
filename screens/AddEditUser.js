@@ -47,6 +47,7 @@ class EditUser extends Component {
         break
 
       case "website":
+        console.log("website",text)
         this.setState({website:text})
         break
 
@@ -99,6 +100,9 @@ class EditUser extends Component {
 
     if(this.props.user !== undefined && this.props.user.users.length > 0 ){
       newID = this.props.user.users[this.props.user.users.length-1].id + 1
+    }
+    else{
+      newID = 0
     }
 
     let formatData ={
