@@ -1,0 +1,10 @@
+- Call an API to get users
+	- Refer to https://jsonplaceholder.typicode.com/
+	- Store the data in a redux store
+- Make 3 pages
+	- A page to display the users from the redux store
+	- A page to add a user
+	- A page to edit a user
+	- A page to clear user redux store
+- Add/edit does not require an API. Just update the user redux store accordingly
+- Make sure to use Expo to run the app

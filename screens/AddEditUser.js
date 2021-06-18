@@ -98,6 +98,7 @@ class EditUser extends Component {
 
     let newID;
 
+    // Get last id and + 1 for newly added user
     if(this.props.user !== undefined && this.props.user.users.length > 0 ){
       newID = this.props.user.users[this.props.user.users.length-1].id + 1
     }
@@ -128,6 +129,8 @@ class EditUser extends Component {
         bs: this.state.companyBS
       }
     }
+
+    console.log(formatData)
 
     if(this.props.route.params === undefined){
       this.props.addUser([formatData])
